@@ -3,7 +3,6 @@ export const theme = (mode) => ({
         mode,
         ...(mode === 'light'
             ? {
-                // palette values for light mode
                 primary: {
                     main: '#44A815',
                 },
@@ -33,20 +32,14 @@ export const theme = (mode) => ({
         MuiTextField: {
             defaultProps: {
                 variant: 'standard',
-                sx: { margin: '16px', }
+                fullWidth: true,
+                sx: { margin: '16px 24px',  }
             },
         },
-        Box: {
+        MuiStack: {
             defaultProps: {
-                sx: ({ theme }) => ({
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    [theme.breakpoints.down('sm')]: {
-                        flexDirection: "row",
-                        alignItems: "flex-start",
-                    }
-                })
+                display: "flex",
+                alignItems: "center",
             }
         }
     }

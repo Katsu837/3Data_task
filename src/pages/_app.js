@@ -1,4 +1,5 @@
-import {createTheme, Switch, ThemeProvider} from "@mui/material";
+import {Box, CssBaseline, Switch, ThemeProvider} from "@mui/material";
+import {createTheme} from '@mui/material/styles'
 import {theme as myTheme} from '@/UI/theme'
 import {createContext, useLayoutEffect, useState} from "react";
 import {useRouter} from "next/router";
@@ -35,8 +36,11 @@ export default function App({ Component, pageProps }) {
 
     return (
         <ThemeProvider theme={theme}>
-            <Switch onChange={changeMode} checked={mode !== 'light'}>{mode}</Switch>
-            <Component {...pageProps}/>
+            <CssBaseline />
+            <Box>
+                <Switch onChange={changeMode} checked={mode !== 'light'}>{mode}</Switch>
+                <Component {...pageProps}/>
+            </Box>
         </ThemeProvider>
   );
 }
