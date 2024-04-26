@@ -1,14 +1,15 @@
 import React from 'react';
 import {Box, Button, Paper} from "@mui/material";
-import MeForm from "@/components/MeForm";
 import {useRouter} from "next/router";
+import MeForm from "@/components/MeForm";
+
 
 const MePage = () => {
-    const router = useRouter()
+    const {push} = useRouter()
     const logout = async () =>
     {
         await localStorage.removeItem('token')
-        router.push('/')
+        push('/')
     }
 
     return (

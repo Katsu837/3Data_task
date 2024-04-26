@@ -1,7 +1,7 @@
 import {Box, CssBaseline, Switch, ThemeProvider} from "@mui/material";
 import {createTheme} from '@mui/material/styles'
 import {theme as myTheme} from '@/UI/theme'
-import {createContext, useLayoutEffect, useState} from "react";
+import {useLayoutEffect, useState} from "react";
 import {useRouter} from "next/router";
 
 
@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }) {
     const [mode, setMode] = useState('light')
     const [showChild, setShowChild] = useState(false)
     const theme = createTheme(myTheme(mode))
-    const router = useRouter()
+    const {push, pathname} = useRouter()
 
 
     const changeMode = () => {
@@ -25,10 +25,10 @@ export default function App({ Component, pageProps }) {
 
 
         const token = localStorage.getItem('token')
-        if(token === null && router.pathname !== '/') router.push('/')
-        else if(token != null && router.pathname === '/') router.push('/me')
+        if(token === null && pathname !== '/') push('/')
+        else if(token != null && pathname === '/') push('/me')
         else setShowChild(true)
-    }, [router, mode])
+    }, [pathname, push, mode])
 
 
     if (!showChild) return null;

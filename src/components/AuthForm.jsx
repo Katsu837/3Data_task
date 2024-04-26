@@ -1,98 +1,63 @@
-import {useFormik} from "formik";
-import {Stack, TextField, Typography} from "@mui/material";
+import {Field, Form, Formik} from "formik";
+import {Stack, Typography} from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import {useRouter} from "next/router";
 import {authSchema} from "@/components/validationShema";
-import toast, {Toaster} from "react-hot-toast";
 import {useState} from "react";
+import {authFetch, dataDomen} from "@/components/fetcher";
+import {TextField} from "formik-mui";
 
 
-const linkToAuth = 'https://cp.3data.ru/openapi/auth2'
+const linkToAuth = `https://${dataDomen}/openapi/auth2`
 
-export default function AuthForm () {
+const AuthForm = () => {
 
-    const router = useRouter()
+    const {push} = useRouter()
     const [hide, setHide] = useState(true)
 
-    const formik = useFormik({
-        initialValues: {
-            login: "",
-            pwd: "",
-            dev: "273iel6mM2B6P8HrhVZNkCis4tg3Dhv8qFXSFrH1"
-        },
-        validationSchema: authSchema,
-        onSubmit: async (values, {setSubmitting}) => {
-            setSubmitting(true)
-            try {
-                const response = await fetch(linkToAuth, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(values)
-                })
+    const submitFunc = async (values) => {
+        try {
+            const response = await authFetch(linkToAuth, values)
 
-                if (response.ok) {
-                    console.log(response)
-                    router.push('/me')
-                    if(!hide) setHide(true)
-                    localStorage.setItem('token', values.dev)
-                }
-                else {
-                    console.error(response.status)
-                    setHide(false)
-                    formik.resetForm();
-                }
-
-            } catch (e) {
-                console.error(e)
-                setHide(false)
-                formik.resetForm();
+            if (response.status === "ok") {
+                push('/me')
+                if(!hide) setHide(true)
+                localStorage.setItem('token', values.dev)
             }
-            // router.push('/me')
-            // localStorage.setItem('token', values.dev)
-            setSubmitting(false)
-        },
-    });
+            else {
+                console.error(response.status)
+                setHide(false)
+            }
+
+        } catch (e) {
+            console.error(e)
+            setHide(false)
+        }
+    }
 
     return (
-        <>
-            <Toaster/>
-            <Stack
-                as="form"
-                onSubmit={formik.handleSubmit}
-                sx={{
-                    width: '350px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alginItems: 'center'
-                }}
-
-            >
-                <Typography variant="h4" >Авторизация</Typography>
-                <TextField
-                    type="text"
-                    name="login"
-                    label="login"
-                    value={formik.values.login}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.login && Boolean(formik.errors.login)}
-                    helperText={formik.touched.login && formik.errors.login}
-                />
-                <TextField
-                    type="password"
-                    name="pwd"
-                    label="password"
-                    value={formik.values.pwd}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.pwd && Boolean(formik.errors.pwd)}
-                    helperText={formik.touched.pwd && formik.errors.pwd}
-                />
-                <LoadingButton type="submit" variant="outlined" loading={formik.isSubmitting}> Войти </LoadingButton>
-                <Typography hidden={hide} mt={1} color='red' >Ошибка авторизации, повторите ввод</Typography>
-            </Stack>
-        </>
+        <Formik
+            initialValues={{
+                login: "demo_mp",
+                pwd: "PQ6RLJaNks",
+                dev: "273iel6mM2B6P8HrhVZNkCis4tg3Dhv8qFXSFrH1"
+            }}
+            validationShema={authSchema}
+            onSubmit={async (values) => await submitFunc(values)
+        }>
+            {({isSubmitting}) => (
+                <Form>
+                    <Stack sx={{width: '350px',}}>
+                        <Typography variant="h4" >Авторизация</Typography>
+                        <Field name="login" label="login" component={TextField}/>
+                        <Field type="password" name="pwd" label="password" component={TextField}/>
+                        <LoadingButton type="submit" variant="outlined" loading={isSubmitting}> Войти </LoadingButton>
+                        <Typography hidden={hide} mt={1} color='red' >Ошибка авторизации, повторите ввод</Typography>
+                    </Stack>
+                </Form>
+            )}
+        </Formik>
     )
 }
+
+export default AuthForm;
