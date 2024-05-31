@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }) {
         localStorage.setItem('themeMode', mode)
 
 
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('devToken')
         if(token === null && pathname !== '/') push('/')
         else if(token != null && pathname === '/') push('/me')
         else setShowChild(true)

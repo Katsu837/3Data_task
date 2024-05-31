@@ -1,53 +1,61 @@
-import React, {useLayoutEffect, useState} from 'react';
-import {Field, Form, Formik} from "formik";
-import {Typography, Stack} from "@mui/material";
+import React, {useEffect, useLayoutEffect, useState} from 'react';
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {Typography, Stack, Box} from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import useSWR from "swr";
-import {fetcherMe, dataDomen} from "@/components/fetcher";
-import {TextField} from "formik-mui";
-import toast from "react-hot-toast";
+import {fetcherMe, dataDomen, fetcherMeEdit} from "@/components/fetcher";
+import Input from "@/components/Input";
+import FormSkeleton from "./FormSkeleton";
+import {meFormSchema} from "@/components/validationShema";
 
 const linkToMe = `https://${dataDomen}/openapi/me`
+const linkToUpdateMe = `https://${dataDomen}/openapi/me/edit`
 const MeForm = () => {
-    const [token, setToken] = useState('')
+    const {data, error, isLoading, mutate} = useSWR(linkToMe, fetcherMe)
 
-    useLayoutEffect(() => {
-        setToken(localStorage.getItem('token'))
-    }, [])
+    const {fio, position, email, phone} = data?.data || {}
+    
+    const mergeDate = (values, data) => {
 
-    const {data, error, mutate} = useSWR([linkToMe, token], ([url, token]) => fetcherMe(url, token))
-
-    const {userName, position, email, phoneNum} = data || {}
-
-    // const errorNotify = () => toast('Ошибка отправки данных')
-    // const completeNotify = () => toast('Данные обновлены')
+        return data;
+    }
 
     return (
+        <>
+        {isLoading ?
+            <FormSkeleton />
+                :
                 <Formik
                     initialValues={{
-                        userNames: data ? userName : "",
+                        fio: data ? fio : "",
                         position: data ? position : "",
                         email: data ? email : "",
-                        phoneNum: data ? phoneNum : "",
+                        phone: data ? phone : "",
                     }}
-                    onSubmit={async (token) => {
-                        await mutate(fetcherMe(linkToMe, token))
-                        // if(error) errorNotify()
-                        // else  completeNotify()
+                    validationSchema={meFormSchema}
+                    onSubmit={async (values) => {
+                        await fetcherMeEdit(linkToUpdateMe, values)
+                        await mutate({...data, ...values})
                     }}>
-                    {({isSubmitting}) => (
+                    {({touched, errors, isSubmitting}) => (
                         <Form>
-                            <Stack>
-                                <Typography variant="h4">Данные пользователя</Typography>
-                                <Field component={TextField} name="userNames" label="ФИО" required/>
-                                <Field component={TextField} name="position" label="Должность"/>
-                                <Field component={TextField} name="email" type="email" label="E-mail" required/>
-                                <Field component={TextField} name="phoneNum" label="Телефон"/>
-                                <LoadingButton type="submit" variant="outlined" loading={isSubmitting}> Сохранить </LoadingButton>
+                            <Stack variant='center'>
+                                <Stack variant='centeringStack'>
+                                    <Typography variant="h4">Данные пользователя</Typography>
+                                </Stack>
+                                <Field component={Input} errors={errors} touched={touched} name="fio" label="ФИО"/>
+                                <Field component={Input} errors={errors} touched={touched} name="position" label="Должность"/>
+                                <Field component={Input} errors={errors} touched={touched} name="email" type="email" label="E-mail"/>
+                                <Field component={Input} errors={errors} touched={touched} name="phone" label="Телефон"/>
+                                <Stack variant='centeringStack'>
+                                    <LoadingButton type="submit" loading={isSubmitting}> Сохранить </LoadingButton>
+                                </Stack>
                             </Stack>
                         </Form>
                     )}
                 </Formik>
+        }
+        </>
     );
 };
 
