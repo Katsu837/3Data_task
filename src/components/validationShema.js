@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 export const authSchema = Yup.object().shape({
-    login: Yup.string().min(4).required('Поле обязательно'),
+    login: Yup.string().trim().required('Поле обязательно'),
     pwd: Yup.string().trim().required('Поле обязательно'),
 });
 
