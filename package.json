@@ -23,5 +23,8 @@
     "react-hot-toast": "^2.4.1",
     "swr": "^2.2.5",
     "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
   }
 }
