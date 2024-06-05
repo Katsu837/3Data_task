@@ -1,7 +1,6 @@
 export const dataDomen = 'cp.3data.ru'
 
 export const fetcherMe = async (url) => {
-    // const {push} = useRouter()
     const token = {token: localStorage.getItem('jwtToken')}
     try {
         const response = await fetch(url, {
@@ -16,7 +15,6 @@ export const fetcherMe = async (url) => {
                 console.log(result.status)
                 if(result.status === 'auth') {
                     localStorage.removeItem('jwtToken')
-                    //push()
             }})
             .catch((e) => console.error(e))
         console.log(jsonResponse)
