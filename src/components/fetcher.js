@@ -1,6 +1,7 @@
 export const dataDomen = 'cp.3data.ru'
 
 export const fetcherMe = async (url) => {
+    // const {push} = useRouter()
     const token = {token: localStorage.getItem('jwtToken')}
     try {
         const response = await fetch(url, {
@@ -9,8 +10,17 @@ export const fetcherMe = async (url) => {
         })
 
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-
-        return response.json()
+        const jsonResponse = response.json()
+        jsonResponse
+            .then((result) => {
+                console.log(result.status)
+                if(result.status === 'auth') {
+                    localStorage.removeItem('jwtToken')
+                    //push()
+            }})
+            .catch((e) => console.error(e))
+        console.log(jsonResponse)
+        return jsonResponse
     } catch (e) {
         console.error(e)
     }
@@ -41,8 +51,11 @@ export const authFetch = async (linkToAuth, values) => {
         });
 
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-
-        return response.json()
+        const jsonResponse = response.json()
+        jsonResponse
+            .then((result) => {localStorage.setItem('jwtToken', result.data.value)})
+            .catch((e) => console.error(e))
+        return jsonResponse
    } catch (e) {
        console.error(e)
    }

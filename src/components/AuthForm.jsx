@@ -1,5 +1,5 @@
-import {ErrorMessage, Field, Form, Formik} from "formik";
-import {Box, Stack, Typography} from "@mui/material";
+import {Field, Form, Formik} from "formik";
+import {Stack, Typography} from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import {useRouter} from "next/router";
 import {authSchema} from "@/components/validationShema";
@@ -18,12 +18,11 @@ const AuthForm = () => {
     const submitFunc = async (values) => {
         try {
             const response = await authFetch(linkToAuth, values)
-
-            if (response.status === "ok") {
+            console.log(response.status)
+            if (response.status === 'ok') {
                 push('/me')
                 if(!hide) setHide(true)
-                localStorage.setItem('devToken', values.dev)
-                localStorage.setItem('jwtToken', response.data.value)
+                //localStorage.setItem('devToken', values.dev)
             }
             else {
                 console.error(response.status)

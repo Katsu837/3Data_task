@@ -1,30 +1,22 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {ErrorMessage, Field, Form, Formik} from "formik";
-import {Typography, Stack, Box} from "@mui/material";
+import React from 'react';
+import {Field, Form, Formik} from "formik";
+import {Typography, Stack} from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import useSWR from "swr";
-import {fetcherMe, dataDomen, fetcherMeEdit} from "@/components/fetcher";
+import {dataDomen, fetcherMeEdit} from "@/components/fetcher";
 import Input from "@/components/Input";
-import FormSkeleton from "./FormSkeleton";
 import {meFormSchema} from "@/components/validationShema";
+import {useSWRConfig} from "swr";
+
 
 const linkToMe = `https://${dataDomen}/openapi/me`
 const linkToUpdateMe = `https://${dataDomen}/openapi/me/edit`
-const MeForm = () => {
-    const {data, error, isLoading, mutate} = useSWR(linkToMe, fetcherMe)
+const MeForm = ({data}) => {
 
     const {fio, position, email, phone} = data?.data || {}
-    
-    const mergeDate = (values, data) => {
+    const { mutate } = useSWRConfig()
 
-        return data;
-    }
-
+    console.log(data)
     return (
-        <>
-        {isLoading ?
-            <FormSkeleton />
-                :
                 <Formik
                     initialValues={{
                         fio: data ? fio : "",
@@ -35,7 +27,7 @@ const MeForm = () => {
                     validationSchema={meFormSchema}
                     onSubmit={async (values) => {
                         await fetcherMeEdit(linkToUpdateMe, values)
-                        await mutate({...data, ...values})
+                        await mutate(linkToMe, {...data, ...values})
                     }}>
                     {({touched, errors, isSubmitting}) => (
                         <Form>
@@ -54,8 +46,7 @@ const MeForm = () => {
                         </Form>
                     )}
                 </Formik>
-        }
-        </>
+
     );
 };
 

@@ -1,27 +1,48 @@
-import React from 'react';
-import {Box, Button, Paper, Stack} from "@mui/material";
+import React, {useEffect} from 'react';
+import {Button, Paper, Stack} from "@mui/material";
 import {useRouter} from "next/router";
-import MeForm, {linkToMe} from "@/components/MeForm";
+import MeForm from "@/components/MeForm";
 import useSWR from "swr";
-import {fetcherMeTwo} from "@/components/fetcher";
+import {dataDomen, fetcherMe} from "@/components/fetcher";
+import FormSkeleton from "@/components/FormSkeleton";
 
+const linkToMe = `https://${dataDomen}/openapi/me`
 const MePage = () => {
 
     const {push} = useRouter()
-    const logout = async () =>
-    {
-        await localStorage.removeItem('devToken')
+    // const [showChild, setShowChild] = useState(false)
+
+    const {data, isLoading} = useSWR(linkToMe, fetcherMe)
+
+    const logout = async () => {
         await localStorage.removeItem('jwtToken')
         push('/')
     }
 
+   useEffect(() => {
+       if(data?.status === 'auth') push('/')
+   }, [data])
+
     return (
-        <Stack variant='fullPage'>
-            <Paper>
-                <MeForm/>
-            </Paper>
-            <Button onClick={logout} sx={{m: 4}}>logout</Button>
-        </Stack>
+        <>
+            {isLoading ?
+                    <Stack variant='fullPage'>
+                        <Paper>
+                            <FormSkeleton/>
+                        </Paper>
+                        <Button onClick={logout} sx={{m: 4}}>logout</Button>
+                    </Stack>
+                :
+                data.status !== 'auth' ?
+                        <Stack variant='fullPage'>
+                            <Paper>
+                                <MeForm data={data}/>
+                            </Paper>
+                            <Button onClick={logout} sx={{m: 4}}>logout</Button>
+                        </Stack>
+                    : null
+            }
+        </>
     )
 };
 
