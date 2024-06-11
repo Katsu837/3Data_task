@@ -21,8 +21,8 @@ const MeForm = ({ data, mutate }) => {
       }}
       validationSchema={meFormSchema}
       onSubmit={async (values) => {
-        await fetcherMeEdit(linkToUpdateMe, values);
-        await mutate(linkToMe, { ...data, ...values });
+        await fetcherMeEdit(`https://${dataDomen}/openapi/me/edit`, values);
+        await mutate();
       }}
     >
       {({ touched, errors, isSubmitting }) => (

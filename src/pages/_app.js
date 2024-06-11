@@ -2,7 +2,7 @@ import { Box, CssBaseline, Switch, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { theme as myTheme } from "@/utils/theme";
+import { theme as myTheme } from "../utils/theme";
 
 export default function App({ Component, pageProps }) {
   const [mode, setMode] = useState("light");

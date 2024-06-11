@@ -19,7 +19,10 @@ function AuthForm() {
         pwd: values.pwd.trim(),
         dev: values.dev,
       };
-      const response = await authFetcher(linkToAuth, data);
+      const response = await authFetcher(
+        `https://${dataDomen}/openapi/auth2`,
+        data,
+      );
       console.log(response.status);
       if (response.status === "ok") {
         push("/me");
