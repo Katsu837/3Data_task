@@ -41,6 +41,10 @@ export const theme = (mode) => ({
         // fullWidth: true,
         sx: {
           margin: "4px 0",
+          // ":-webkit-autofill": {
+          //   webkitBoxShadow: "0 0 0 100px #2B2E33 inset",
+          //   borderRadius: "none",
+          // },
         },
       },
     },

@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { authSchema } from "@/utils/validationShema";
 import { authFetcher } from "@/api/fetcher";
-import Input from "@/components/Input/Input";
+import Input from "@/components/Input";
 import { dataDomen } from "@/utils/domens";
 
 function AuthForm() {

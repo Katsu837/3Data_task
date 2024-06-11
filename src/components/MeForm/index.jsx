@@ -3,7 +3,7 @@ import { Field, Form, Formik } from "formik";
 import { Typography, Stack } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { fetcherMeEdit } from "@/api/fetcher";
-import Input from "@/components/Input/Input";
+import Input from "@/components/Input";
 import { meFormSchema } from "@/utils/validationShema";
 import { dataDomen } from "@/utils/domens";
 
