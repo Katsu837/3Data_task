@@ -1,9 +1,3 @@
-import { Amiko } from "next/font/google";
-
-const amiko = Amiko({
-  weight: "400",
-  subsets: ["latin"],
-});
 export const theme = (mode) => ({
   palette: {
     mode,
@@ -38,7 +32,6 @@ export const theme = (mode) => ({
     borderRadius: 15,
   },
   typography: {
-    // fontFamily: amiko,
     fontSize: 14,
   },
   components: {
