@@ -3,15 +3,13 @@ import {Button, Paper, Stack} from "@mui/material";
 import {useRouter} from "next/router";
 import MeForm from "@/components/MeForm";
 import useSWR from "swr";
-import {dataDomen, fetcherMe} from "@/components/fetcher";
+import {fetcherMe} from "@/api/fetcher";
 import FormSkeleton from "@/components/FormSkeleton";
+import {linkToMe} from "@/utils/domens";
 
-const linkToMe = `https://${dataDomen}/openapi/me`
 const MePage = () => {
 
     const {push} = useRouter()
-    // const [showChild, setShowChild] = useState(false)
-
     const {data, isLoading} = useSWR(linkToMe, fetcherMe)
 
     const logout = async () => {
