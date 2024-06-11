@@ -3,14 +3,12 @@ import { Field, Form, Formik } from "formik";
 import { Typography, Stack } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { fetcherMeEdit } from "@/api/fetcher";
-import Input from "@/components/Input";
+import Input from "@/components/Input/Input";
 import { meFormSchema } from "@/utils/validationShema";
-import { useSWRConfig } from "swr";
-import { linkToUpdateMe, linkToMe } from "@/utils/domens";
+import { dataDomen } from "@/utils/domens";
 
-const MeForm = ({ data }) => {
+const MeForm = ({ data, mutate }) => {
   const { fio, position, email, phone } = data?.data || {};
-  const { mutate } = useSWRConfig();
 
   console.log(data);
   return (

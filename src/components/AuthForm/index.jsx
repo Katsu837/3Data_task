@@ -3,10 +3,10 @@ import { Stack, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { authSchema, meFormSchema } from "@/utils/validationShema";
+import { authSchema } from "@/utils/validationShema";
 import { authFetcher } from "@/api/fetcher";
-import Input from "@/components/Input";
-import { linkToAuth } from "@/utils/domens";
+import Input from "@/components/Input/Input";
+import { dataDomen } from "@/utils/domens";
 
 function AuthForm() {
   const { push } = useRouter();
