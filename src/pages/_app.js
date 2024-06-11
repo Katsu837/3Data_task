@@ -4,7 +4,7 @@ import { useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { theme as myTheme } from "@/utils/theme";
 
-export default function App() {
+export default function App({ Component, pageProps }) {
   const [mode, setMode] = useState("light");
   const [showChild, setShowChild] = useState(false);
   const theme = createTheme(myTheme(mode));
