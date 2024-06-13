@@ -1,4 +1,17 @@
 {
-  "extends": ["prettier","airbnb"],
-  "plugins": ["prettier"]
+  "extends": [
+    "prettier",
+    "airbnb"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "rules ": {
+    "no-unused-vars": "warn",
+    "parserOptions": {
+      "sourceType": "module",
+      "allowImportExportEverywhere": true,
+      "ecmaVersion": 2020
+    }
+  }
 }

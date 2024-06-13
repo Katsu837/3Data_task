@@ -24,7 +24,7 @@ const MeForm = ({ data }) => {
       validationSchema={meFormSchema}
       onSubmit={async (values) => {
         await fetcherMeEdit(linkToUpdateMe, values);
-        await mutate(linkToMe, { ...data, ...values });
+        await mutate();
       }}
     >
       {({ touched, errors, isSubmitting }) => (
