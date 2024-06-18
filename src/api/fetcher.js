@@ -10,13 +10,11 @@ export const fetcherMe = async (url) => {
     const jsonResponse = response.json();
     jsonResponse
       .then((result) => {
-        console.log(result.status);
         if (result.status === "auth") {
           localStorage.removeItem("jwtToken");
         }
       })
       .catch((e) => console.error(e));
-    console.log(jsonResponse);
     return jsonResponse;
   } catch (e) {
     console.error(e);

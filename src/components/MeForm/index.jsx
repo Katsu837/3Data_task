@@ -10,7 +10,6 @@ import { dataDomen } from "@/utils/domens";
 const MeForm = ({ data, mutate }) => {
   const { fio, position, email, phone } = data?.data || {};
 
-  console.log(data);
   return (
     <Formik
       initialValues={{

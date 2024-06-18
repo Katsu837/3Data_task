@@ -3,6 +3,7 @@ import { createTheme } from "@mui/material/styles";
 import { useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { theme as myTheme } from "../utils/theme";
+import Layout from "@/layouts/Layout";
 
 export default function App({ Component, pageProps }) {
   const [mode, setMode] = useState("light");
@@ -31,18 +32,15 @@ export default function App({ Component, pageProps }) {
     else setShowChild(true);
   }, [pathname, push, mode]);
 
-  console.log(mode);
-
   if (!showChild) return null;
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box>
-        <Switch onChange={changeThemeMode} checked={mode !== "light"}>
-          {mode}
-        </Switch>
-        <Component {...pageProps} />
+        <Layout changeThemeMode={changeThemeMode} mode={mode}>
+          <Component {...pageProps} />
+        </Layout>
       </Box>
     </ThemeProvider>
   );
