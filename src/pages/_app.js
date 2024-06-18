@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material/styles";
 import { useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { theme as myTheme } from "../utils/theme";
-import Layout from "@/layouts/Layout";
+import Layout from "@/layouts/HeaderLayout";
 
 export default function App({ Component, pageProps }) {
   const [mode, setMode] = useState("light");

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "@/layouts/Header/Header";
+import Header from "@/components/Header";
 
 const Layout = ({ children, changeThemeMode, mode }) => {
   return (
