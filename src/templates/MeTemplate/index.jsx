@@ -6,10 +6,6 @@ import { useRouter } from "next/router";
 
 function MeTemplate({ data, isLoading, mutate }) {
   const { push } = useRouter();
-  const logout = async () => {
-    await localStorage.removeItem("jwtToken");
-    push("/");
-  };
 
   return (
     <>
@@ -18,18 +14,12 @@ function MeTemplate({ data, isLoading, mutate }) {
           <Paper>
             <FormSkeleton />
           </Paper>
-          <Button onClick={logout} sx={{ m: 4 }}>
-            logout
-          </Button>
         </Stack>
       ) : data.status !== "auth" ? (
         <Stack variant="fullPage">
           <Paper>
             <MeForm data={data} mutate={mutate} />
           </Paper>
-          <Button onClick={logout} sx={{ m: 4 }}>
-            logout
-          </Button>
         </Stack>
       ) : null}
     </>

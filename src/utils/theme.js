@@ -124,7 +124,7 @@ export const theme = (mode) => ({
           props: { variant: "fullPage" },
           style: {
             alignItems: "center",
-            height: "100vh",
+            height: "94vh",
           },
         },
         {

@@ -23,7 +23,6 @@ function AuthForm() {
         `https://${dataDomen}/openapi/auth2`,
         data,
       );
-      console.log(response.status);
       if (response.status === "ok") {
         push("/me");
         if (!hide) setHide(true);

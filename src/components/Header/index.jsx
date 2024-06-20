@@ -1,17 +1,19 @@
 import React from "react";
-import { Box, Switch, Tab, Tabs } from "@mui/material";
+import { Box, Switch, Tab, Tabs, Button } from "@mui/material";
 import { useRouter } from "next/router";
 
 function Header({ changeThemeMode, mode }) {
   const { push, pathname } = useRouter();
-  const [value, setValue] = React.useState(() => {
-    if (pathname === "/me") return 0;
-    else return 1;
-  });
+  const [value, setValue] = React.useState(0);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 0) push("/me");
     else push("/table");
+  };
+  const logout = async () => {
+    await localStorage.removeItem("jwtToken");
+    push("/");
   };
   return (
     <Box
@@ -29,9 +31,20 @@ function Header({ changeThemeMode, mode }) {
           <Tab label="Table Page" />
         </Tabs>
       )}
-      <Switch onChange={changeThemeMode} checked={mode !== "light"}>
-        {mode}
-      </Switch>
+      <Box>
+        <Switch
+          onChange={changeThemeMode}
+          checked={mode !== "light"}
+          sx={{ m: 1 }}
+        >
+          {mode}
+        </Switch>
+        {pathname === "/" ? null : (
+          <Button onClick={logout} sx={{ m: 1 }}>
+            logout
+          </Button>
+        )}
+      </Box>
     </Box>
   );
 }
