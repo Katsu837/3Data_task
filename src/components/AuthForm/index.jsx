@@ -4,7 +4,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { authSchema } from "@/utils/validationShema";
-import { authFetcher } from "@/api/fetcher";
+import { fetcher } from "@/api/fetcher";
 import Input from "@/components/Input";
 import { dataDomen } from "@/utils/domens";
 
@@ -19,7 +19,7 @@ function AuthForm() {
         pwd: values.pwd.trim(),
         dev: values.dev,
       };
-      const response = await authFetcher(
+      const response = await fetcher(
         `https://${dataDomen}/openapi/auth2`,
         data,
       );
