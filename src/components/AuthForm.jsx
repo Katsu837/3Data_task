@@ -3,10 +3,10 @@ import { Stack, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { authSchema, meFormSchema } from "@/utils/validationShema";
+import { authSchema } from "@/utils/validationShema";
 import { authFetcher } from "@/api/fetcher";
 import Input from "@/components/Input";
-import { linkToAuth } from "@/utils/domens";
+import { dataDomen } from "@/utils/domens";
 
 function AuthForm() {
   const { push } = useRouter();
@@ -19,8 +19,10 @@ function AuthForm() {
         pwd: values.pwd.trim(),
         dev: values.dev,
       };
-      const response = await authFetcher(linkToAuth, data);
-      console.log(response.status);
+      const response = await authFetcher(
+        `https://${dataDomen}/openapi/auth2`,
+        data,
+      );
       if (response.status === "ok") {
         push("/me");
         if (!hide) setHide(true);
