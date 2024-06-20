@@ -1,4 +1,46 @@
 {
+<<<<<<< HEAD
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "no-unused-vars": "warn",
+    "quotes": "off",
+    "import/prefer-default-export": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-filename-extension": "warn",
+    "arrow-body-style": "warn",
+    "import/extensions": "off",
+    "react/prop-types": "off",
+    "import/order": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-shadow": "warn",
+    "no-else-return": "warn",
+    "no-return-await": "warn",
+    "consistent-return": "off"
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": 2020
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [["@", "./src"]],
+        "extensions": [".ts", ".js", ".jsx", ".json"]
+      }
+    }
+  },
+  "globals": {
+    "document": true,
+    "window": true,
+    "localStorage": true
+  }
+}
+=======
   "extends": [
     "prettier",
     "airbnb"
@@ -15,3 +57,4 @@
     }
   }
 }
+>>>>>>> main
