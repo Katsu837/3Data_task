@@ -1,9 +1,9 @@
-import { Box, CssBaseline, Switch, ThemeProvider } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
+import MyLayout from "../layouts/MyLayout";
 import { theme as myTheme } from "../utils/theme";
-import Layout from "@/layouts/HeaderLayout";
 
 export default function App({ Component, pageProps }) {
   const [mode, setMode] = useState("light");
@@ -16,9 +16,12 @@ export default function App({ Component, pageProps }) {
   };
 
   const changeThemeMode = () => {
-    const theme = localStorage.getItem("themeMode");
+    const storageTheme = localStorage.getItem("themeMode");
     changeMode();
-    localStorage.setItem("themeMode", theme === "light" ? "dark" : "light");
+    localStorage.setItem(
+      "themeMode",
+      storageTheme === "light" ? "dark" : "light",
+    );
   };
 
   useLayoutEffect(() => {
@@ -38,9 +41,9 @@ export default function App({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box>
-        <Layout changeThemeMode={changeThemeMode} mode={mode}>
+        <MyLayout changeThemeMode={changeThemeMode} mode={mode}>
           <Component {...pageProps} />
-        </Layout>
+        </MyLayout>
       </Box>
     </ThemeProvider>
   );

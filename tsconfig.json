@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "target": "ES2015",
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "strictNullChecks": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "components/*": ["./src/components/*"],
+      "context/*": ["./src/context/*"],
+      "utils/*": ["./src/utils/*"],
+      "hooks/*": ["./src/hooks/*"],
+      "public/*": ["./public/*"],
+      "src/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "src/tsconfig/*.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/utils/token.еы",
+    "src/pages/_document.jsx",
+    "src/utils/fetcher.js",
+    "src/utils/getDesignTokens.ts"
+  ],
+  "exclude": ["node_modules"]
+}

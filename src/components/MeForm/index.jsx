@@ -2,10 +2,10 @@ import React from "react";
 import { Field, Form, Formik } from "formik";
 import { Typography, Stack } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { fetcherMeEdit } from "@/api/fetcher";
-import Input from "@/components/Input";
-import { meFormSchema } from "@/utils/validationShema";
-import { dataDomen } from "@/utils/domens";
+import { fetcher } from "../../api/fetcher";
+import Input from "../Input";
+import { meFormSchema } from "../../utils/validationShema";
+import { dataDomen } from "../../utils/domens";
 
 const MeForm = ({ data, mutate }) => {
   const { fio, position, email, phone } = data?.data || {};
@@ -20,7 +20,7 @@ const MeForm = ({ data, mutate }) => {
       }}
       validationSchema={meFormSchema}
       onSubmit={async (values) => {
-        await fetcherMeEdit(`https://${dataDomen}/openapi/me/edit`, values);
+        await fetcher(`https://${dataDomen}/openapi/me/edit`, values);
         await mutate();
       }}
     >

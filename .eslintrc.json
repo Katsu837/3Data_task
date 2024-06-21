@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
   "rules": {
@@ -40,21 +39,3 @@
     "localStorage": true
   }
 }
-=======
-  "extends": [
-    "prettier",
-    "airbnb"
-  ],
-  "plugins": [
-    "prettier"
-  ],
-  "rules ": {
-    "no-unused-vars": "warn",
-    "parserOptions": {
-      "sourceType": "module",
-      "allowImportExportEverywhere": true,
-      "ecmaVersion": 2020
-    }
-  }
-}
->>>>>>> main

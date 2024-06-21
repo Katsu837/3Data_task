@@ -13,6 +13,7 @@ function Header({ changeThemeMode, mode }) {
   };
   const logout = async () => {
     await localStorage.removeItem("jwtToken");
+    setValue(0);
     push("/");
   };
   return (
