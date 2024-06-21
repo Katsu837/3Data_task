@@ -4,7 +4,10 @@ import { useRouter } from "next/router";
 
 function Header({ changeThemeMode, mode }) {
   const { push, pathname } = useRouter();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(() => {
+    if (pathname === "/me") return 0;
+    return 1;
+  });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
