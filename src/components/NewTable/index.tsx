@@ -1,3 +1,4 @@
+import React, { FC } from "react";
 import {
   Table,
   TableBody,
@@ -7,7 +8,35 @@ import {
   TableRow,
 } from "@mui/material";
 
-const MyTable = ({ data, mutate }) => {
+interface TableProps {
+  data: { data: TableData };
+  mutate: any;
+}
+
+interface TableData {
+  head: Head[] | [];
+  rows: Row[] | [];
+}
+
+interface Cell {
+  id: number;
+}
+
+interface Head extends Cell {
+  name: string;
+  key: string;
+}
+
+interface Row extends Cell {
+  number: string;
+  status: string;
+  sum: string;
+  ctime: string;
+  sum_ndc: string;
+  currency: string;
+}
+
+const NewTable = ({ data, mutate }: TableProps) => {
   const values = data?.data || { head: null, rows: null };
   return (
     <TableContainer>
@@ -38,4 +67,4 @@ const MyTable = ({ data, mutate }) => {
   );
 };
 
-export default MyTable;
+export default NewTable;

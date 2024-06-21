@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import { fetcher } from "@/api/fetcher";
-import { dataDomen } from "@/utils/domens";
+import { fetcher } from "../api/fetcher";
+import { dataDomen } from "../utils/domens";
 
 const useMe = () => {
   const { data, isLoading, mutate } = useSWR(

@@ -1,7 +1,7 @@
 import React from "react";
 import { Paper, Stack } from "@mui/material";
-import FormSkeleton from "@/components/FormSkeleton";
-import MeForm from "@/components/MeForm";
+import FormSkeleton from "../../components/FormSkeleton";
+import MeForm from "../../components/MeForm";
 import { useRouter } from "next/router";
 
 function MeTemplate({ data, isLoading, mutate }) {

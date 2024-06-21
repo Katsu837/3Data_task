@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import MeTemplate from "@/templates/MeTemplate";
-import useMe from "@/hooks/useMe";
+import MeTemplate from "../templates/MeTemplate";
+import useMe from "../hooks/useMe";
 
 const MePage = () => {
   const { push } = useRouter();
